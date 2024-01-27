@@ -22,12 +22,13 @@ function App() {
       setGameOver(true);
       setScore(score);
     }
+    
   },[score, bestScore])
 
   const fetchData = async () => {
     const fetchedData = [];
 
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 10; i++) {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
       const result = await response.json();
       fetchedData.push(result);
