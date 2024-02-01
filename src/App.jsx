@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import './index.css';
 import { Navbar } from './Component/Navbar';
 import { ScoreBord } from './Component/ScoreBord';
-
+import Loader from './Component/Loader';
 function App() {
   const [data, setData] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState();
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [loader, setLoader] = useState(true)
 
   useEffect(() => {
     fetchData();
@@ -32,6 +33,7 @@ function App() {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
       const result = await response.json();
       fetchedData.push(result);
+      setLoader(false)
     }
 
     setData(fetchedData);
@@ -62,6 +64,7 @@ function App() {
 
   return (
     <div>
+        {loader ? <Loader /> : null}
       <Navbar/>
       <ScoreBord score={score} bestScore={bestScore} />
       { gameOver ? ( <div className="win">
